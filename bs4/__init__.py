@@ -267,6 +267,8 @@ class BeautifulSoup(Tag):
          TreeBuilder by passing in arguments, not just by saying which
          one to use.
         """
+        self.replacer = kwargs.pop("replacer", None) # New Line
+
         if "convertEntities" in kwargs:
             del kwargs["convertEntities"]
             warnings.warn(

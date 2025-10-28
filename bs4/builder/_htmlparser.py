@@ -151,6 +151,10 @@ class BeautifulSoupHTMLParser(HTMLParser, DetectsXMLParsedAsHTML):
             an empty-element tag (i.e. there is not expected to be any
             closing tag).
         """
+        # ===== SoupReplacer hook =====
+        if self.soup.replacer:
+            name = self.soup.replacer.replace(name)
+            
         # TODO: handle namespaces here?
         attr_dict: AttributeDict = self.attribute_dict_class()
         for key, value in attrs:

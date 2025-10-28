@@ -4,7 +4,7 @@ import sys
 import time
 from bs4 import BeautifulSoup, Tag
 # import SoupReplacer from self-defined bs4.replacer module
-from bs4.replacer import SoupReplacer 
+from bs4.soupreplacer import SoupReplacer 
 
 TEST_HTML_DOC = """
 <html>

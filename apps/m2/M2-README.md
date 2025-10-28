@@ -32,5 +32,8 @@
 | Changed File | Details |
 | :--- | :--- |
 | **bs4/soupreplacer.py** | new class |
+| **bs4/__init__.py** | + `self.replacer = kwargs.pop("replacer", None)` |
+| **bs4/builder/_htmlparser.py** | method **handle_starttag** + `if self.soup.replacer: name = self.soup.replacer.replace(name)` |
+| **tests/test_soupreplacer.py** | new test file |
 
 </details>
