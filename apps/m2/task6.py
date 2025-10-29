@@ -1,10 +1,16 @@
-# task6_replacer.py 
+# task6_replacer.py
 
-import sys
+import os, sys
+PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
+if PROJECT_ROOT not in sys.path:
+    sys.path.insert(0, PROJECT_ROOT)
+
 import time
-from bs4 import BeautifulSoup, Tag
+from bs4 import BeautifulSoup
+from bs4.replacer import SoupReplacer
 # import SoupReplacer from self-defined bs4.replacer module
-from bs4.soupreplacer import SoupReplacer 
+
+# from bs4.soupreplacer import SoupReplacer
 
 TEST_HTML_DOC = """
 <html>

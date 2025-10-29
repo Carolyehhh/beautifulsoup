@@ -108,6 +108,13 @@ class BeautifulSoupHTMLParser(HTMLParser, DetectsXMLParsedAsHTML):
     already_closed_empty_element: List[str]
     soup: BeautifulSoup
 
+     # ------------------ SoupReplacer hook ------------------
+    def _map_name(self, name: str) -> str:
+        """Return possibly-replaced tag name if a SoupReplacer is attached."""
+        rp = getattr(self.soup, "replacer", None)
+        return rp.maybe(name) if rp else name
+    # -------------------------------------------------------
+
     def error(self, message: str) -> None:
         # NOTE: This method is required so long as Python 3.9 is
         # supported. The corresponding code is removed from HTMLParser
@@ -123,7 +130,7 @@ class BeautifulSoupHTMLParser(HTMLParser, DetectsXMLParsedAsHTML):
         # raises AssertionError rather than calling a method. (We
         # catch this error and wrap it in a ParserRejectedMarkup.)
         raise ParserRejectedMarkup(message)
-
+    
     def handle_startendtag(
         self, name: str, attrs: List[Tuple[str, Optional[str]]]
     ) -> None:
@@ -132,6 +139,8 @@ class BeautifulSoupHTMLParser(HTMLParser, DetectsXMLParsedAsHTML):
         html.parser only calls this method when the markup looks like
         <tag/>.
         """
+        name = self._map_name(name)
+
         # `handle_empty_element` tells handle_starttag not to close the tag
         # just because its name matches a known empty-element tag. We
         # know that this is an empty-element tag, and we want to call
@@ -151,10 +160,9 @@ class BeautifulSoupHTMLParser(HTMLParser, DetectsXMLParsedAsHTML):
             an empty-element tag (i.e. there is not expected to be any
             closing tag).
         """
-        # ===== SoupReplacer hook =====
-        if self.soup.replacer:
-            name = self.soup.replacer.replace(name)
-            
+
+        name = self._map_name(name) #new line
+
         # TODO: handle namespaces here?
         attr_dict: AttributeDict = self.attribute_dict_class()
         for key, value in attrs:
@@ -213,6 +221,8 @@ class BeautifulSoupHTMLParser(HTMLParser, DetectsXMLParsedAsHTML):
            be the closing portion of an empty-element tag,
            e.g. '<tag></tag>'.
         """
+        name = self._map_name(name) # new line
+
         # print("END", name)
         if check_already_closed and name in self.already_closed_empty_element:
             # This is a redundant end tag for an empty-element tag.

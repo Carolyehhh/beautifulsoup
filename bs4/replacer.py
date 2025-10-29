@@ -3,7 +3,7 @@ class SoupReplacer:
         self.og_tag = og_tag
         self.alt_tag = alt_tag
 
-    def replace(self, name):
+    def maybe(self, name):
         """Return replacement tag name if matching."""
         if name == self.og_tag:
             return self.alt_tag

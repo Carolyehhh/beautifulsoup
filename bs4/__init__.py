@@ -36,6 +36,7 @@ __all__ = [
     "UnicodeDammit",
     "CData",
     "Doctype",
+    "SoupReplacer",
 
     # Exceptions
     "FeatureNotFound",
@@ -129,6 +130,10 @@ from bs4._warnings import (
     XMLParsedAsHTMLWarning,
 )
 
+# from .replacer import SoupReplacer # New line: import new module
+from typing import TYPE_CHECKING
+if TYPE_CHECKING:
+    from .replacer import SoupReplacer
 
 class BeautifulSoup(Tag):
     """A data structure representing a parsed HTML or XML document.
@@ -215,6 +220,7 @@ class BeautifulSoup(Tag):
         from_encoding: Optional[_Encoding] = None,
         exclude_encodings: Optional[_Encodings] = None,
         element_classes: Optional[Dict[Type[PageElement], Type[PageElement]]] = None,
+        replacer: "Optional[SoupReplacer]" = None, # New Line
         **kwargs: Any,
     ):
         """Constructor.
@@ -437,6 +443,7 @@ class BeautifulSoup(Tag):
         self.known_xml = self.is_xml
         self._namespaces = dict()
         self.parse_only = parse_only
+        self.replacer = replacer # new line
 
         if hasattr(markup, "read"):  # It's a file-type object.
             markup = markup.read()

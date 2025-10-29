@@ -1,5 +1,5 @@
 from bs4 import BeautifulSoup
-from bs4.soupreplacer import SoupReplacer
+from bs4.replacer import SoupReplacer
 
 def test_replace_b_to_blockquote():
     html = "<html><body><b>text</b></body></html>"
