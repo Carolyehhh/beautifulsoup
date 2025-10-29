@@ -8,9 +8,6 @@ if PROJECT_ROOT not in sys.path:
 import time
 from bs4 import BeautifulSoup
 from bs4.replacer import SoupReplacer
-# import SoupReplacer from self-defined bs4.replacer module
-
-# from bs4.soupreplacer import SoupReplacer
 
 TEST_HTML_DOC = """
 <html>
