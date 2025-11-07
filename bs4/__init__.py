@@ -130,7 +130,7 @@ from bs4._warnings import (
     XMLParsedAsHTMLWarning,
 )
 
-# from .replacer import SoupReplacer # New line: import new module
+from .replacer import SoupReplacer # New line: import new module
 from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from .replacer import SoupReplacer

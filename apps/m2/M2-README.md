@@ -2,7 +2,7 @@
 
 <details>
   <summary>
- <strong>Part 2: API Definition Locations<strong>
+ <strong>Part 2:<strong> <strong> API Definition Locations<strong>
   </summary>
 
 ### 1. API names, located files and lines

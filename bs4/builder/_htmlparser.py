@@ -11,6 +11,9 @@ __all__ = [
 
 from html.parser import HTMLParser
 
+# Milestone 3
+# from bs4.replacer import apply_replacer
+
 from typing import (
     Any,
     Callable,
@@ -191,9 +194,24 @@ class BeautifulSoupHTMLParser(HTMLParser, DetectsXMLParsedAsHTML):
             sourceline, sourcepos = self.getpos()
         else:
             sourceline = sourcepos = None
+
         tag = self.soup.handle_starttag(
             name, None, None, attr_dict, sourceline=sourceline, sourcepos=sourcepos
         )
+
+        # Milestone 3
+        self._pending_replacer = tag
+
+        rp = getattr(self.soup, "replacer", None)
+        if tag is not None and rp is not None:
+            # prefer calling method on replacer (already implemented)
+            # rp may be an instance of SoupReplacer
+            try:
+                rp.apply_replacer(tag)
+            except Exception:
+                # be defensive; never let replacer break parsing
+                pass
+
         if tag and tag.is_empty_element and handle_empty_element:
             # Unlike other parsers, html.parser doesn't send separate end tag
             # events for empty-element tags. (It's handled in
@@ -233,9 +251,11 @@ class BeautifulSoupHTMLParser(HTMLParser, DetectsXMLParsedAsHTML):
         else:
             self.soup.handle_endtag(name)
 
+
     def handle_data(self, data: str) -> None:
         """Handle some textual data that shows up between tags."""
-        self.soup.handle_data(data)
+        string = self.soup.handle_data(data)
+
 
     def handle_charref(self, name: str) -> None:
         """Handle a numeric character reference by converting it to the
