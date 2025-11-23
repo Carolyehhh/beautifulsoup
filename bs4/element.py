@@ -373,6 +373,19 @@ class PageElement(object):
     #: Only the `BeautifulSoup` object itself is hidden.
     hidden: bool = False
 
+    def __iter__(self):
+            # 1. Yield itself (return the current node)
+            yield self
+            # 2. check if there are child node (There are contents in Tag, text nodes doesn't have that)
+            if hasattr(self, 'contents'):
+                for child in self.contents:
+                    # 3. recursively call child node's __iter__
+                    # yield from automatically deal with iterator return from child node
+                    if isinstance(child, Tag):
+                        yield from child
+                    else:
+                        yield child
+
     def setup(
         self,
         parent: Optional[Tag] = None,
@@ -2205,9 +2218,9 @@ class Tag(PageElement):
         and throws an exception if it's not there."""
         return self.attrs[key]
 
-    def __iter__(self) -> Iterator[PageElement]:
-        "Iterating over a Tag iterates over its contents."
-        return iter(self.contents)
+    # def __iter__(self) -> Iterator[PageElement]:
+    #     "Iterating over a Tag iterates over its contents."
+    #     return iter(self.contents)
 
     def __len__(self) -> int:
         "The length of a Tag is the length of its list of contents."
