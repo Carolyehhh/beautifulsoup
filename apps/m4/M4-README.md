@@ -3,6 +3,15 @@
 ## Overview
 This milestone introduces the ability to iterate over a `BeautifulSoup` object (and any `Tag` object) directly using a `for` loop. The iteration performs a **Depth-First Search (DFS)** traversal over the entire parse tree.
 
+
+## Setup / Prerequisites
+This project requires the following Python packages. Please install them before running the tests:
+
+
+```bash
+pip install pytest typing-extensions
+```
+
 ## Implementation Details
 The implementation modifies the `PageElement` class in `bs4/element.py`.
 
@@ -31,3 +40,10 @@ for node in soup:
 - Generator type verification
 - Deeply nested trees
 - Mixed content (Tags and Strings)
+
+## Verification
+To verify the implementation, you can run the specific unit tests for Milestone 4 from the root directory of the repository:
+
+```bash
+python3 -m unittest bs4.tests.test_m4
+```
