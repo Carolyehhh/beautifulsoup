@@ -42,8 +42,18 @@ for node in soup:
 - Mixed content (Tags and Strings)
 
 ## Verification
-To verify the implementation, you can run the specific unit tests for Milestone 4 from the root directory of the repository:
+To verify the implementation, you can run the unit tests or the client demo script.
+
+### 1. Run Unit Tests
+Execute the specific unit tests for Milestone 4:
 
 ```bash
 python3 -m unittest bs4.tests.test_m4
+```
+### 2. Run Client Demo (task8.py)
+A client application script is provided to demonstrate iterating over a real HTML file in client space.
+
+Usage:
+```bash
+PYTHONPATH=. python3 apps/m4/task8.py <path/to/file.html>
 ```
